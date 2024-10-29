@@ -16,7 +16,7 @@ npx create-next-app@latest projectName
 ## Libraries
 
 ```sh
-   npm install @clerk/nextjs@5.0.1 @prisma/client@^5.7.0 @tanstack/react-query@^5.14.0 @tanstack/react-query-devtools@^5.14.0 dayjs@^1.11.10 next-themes@^0.2.1 recharts@^2.10.3
+   npm install @clerk/nextjs@^4.27.7 @prisma/client@^5.7.0 @tanstack/react-query@^5.14.0 @tanstack/react-query-devtools@^5.14.0 dayjs@^1.11.10 next-themes@^0.2.1 recharts@^2.10.3
    npm install prisma@^5.7.0 -D
 ```
 
@@ -28,13 +28,13 @@ npx create-next-app@latest projectName
 - open another terminal window (optional)
 
 ```sh
-npx shadcn@latest init
+npx shadcn-ui@latest init
 ```
 
 - setup Button
 
 ```sh
-npx shadcn@latest add button
+npx shadcn-ui@latest add button
 ```
 
 [Icons](https://lucide.dev/guide/packages/lucide-react)
@@ -457,7 +457,7 @@ export default Navbar;
 
 2. **Install the Dropdown-Menu Component:**
 
-   - Install it using `npx shadcn@latest add dropdown-menu`
+   - Install it using `npx shadcn-ui@latest add dropdown-menu`
 
 3. **Import necessary modules and components:**
 
@@ -485,7 +485,7 @@ export default Navbar;
 - [docs](https://ui.shadcn.com/docs/components/dropdown-menu)
 
 ```sh
-npx shadcn@latest add dropdown-menu
+npx shadcn-ui@latest add dropdown-menu
 ```
 
 LinksDropdown.tsx
@@ -675,7 +675,7 @@ export function ModeToggle() {
 - render in add-job/page.tsx
 
 ```sh
-npx shadcn@latest add form input
+npx shadcn-ui@latest add form input
 ```
 
 ```tsx
@@ -835,7 +835,7 @@ export type CreateAndEditJobType = z.infer<typeof createAndEditJobSchema>;
 - install
 
 ```sh
-npx shadcn@latest add select
+npx shadcn-ui@latest add select
 ```
 
 - [docs](https://ui.shadcn.com/docs/components/select)
@@ -1282,7 +1282,7 @@ export async function createJobAction(
 - install
 
 ```sh
-npx shadcn@latest add toast
+npx shadcn-ui@latest add toast
 
 ```
 
@@ -1761,7 +1761,7 @@ export default JobsList;
 - install
 
 ```sh
-npx shadcn@latest add badge separator card
+npx shadcn-ui@latest add badge separator card
 
 ```
 
@@ -2375,16 +2375,6 @@ function EditJobForm({ jobId }: { jobId: string }) {
 export default EditJobForm;
 ```
 
-## Important Info !!!
-
-If you decide to use my mock data (prisma/mock-data.js), first run this command:
-
-```sh
-node prisma/generate-data
-```
-
-This will generate jobs with the correct createdAt dates (within the last six months).
-
 ## Seed Database
 
 - create fake data in Mockaroo
@@ -2652,10 +2642,10 @@ import {
 async function StatsPage() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['stats'],
-    queryFn: () => getStatsAction(),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['stats'],
+  //   queryFn: () => getStatsAction(),
+  // });
   await queryClient.prefetchQuery({
     queryKey: ['charts'],
     queryFn: () => getChartsDataAction(),
@@ -2675,7 +2665,7 @@ export default StatsPage;
 - install
 
 ```sh
-npx shadcn@latest add skeleton
+npx shadcn-ui@latest add skeleton
 
 ```
 
@@ -2811,15 +2801,22 @@ export default StatsCards;
 'use client';
 import { useQuery } from '@tanstack/react-query';
 import { getStatsAction } from '@/utils/actions';
-import StatsCardfrom './StatsCard';
+import StatsCard, { StatsLoadingCard } from './StatsCard';
 
 function StatsContainer() {
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['stats'],
     queryFn: () => getStatsAction(),
   });
 
-
+  if (isPending)
+    return (
+      <div className='grid md:grid-cols-2 gap-4 lg:grid-cols-3'>
+        <StatsLoadingCard />
+        <StatsLoadingCard />
+        <StatsLoadingCard />
+      </div>
+    );
 
   return (
     <div className='grid md:grid-cols-2 gap-4 lg:grid-cols-3'>
@@ -2830,41 +2827,6 @@ function StatsContainer() {
   );
 }
 export default StatsContainer;
-```
-
-## Setup Loading
-
-stats/loading.tsx
-
-```tsx
-import { StatsLoadingCard } from '@/components/StatsCard';
-function loading() {
-  return (
-    <div className='grid md:grid-cols-2 gap-4 lg:grid-cols-3'>
-      <StatsLoadingCard />
-      <StatsLoadingCard />
-      <StatsLoadingCard />
-    </div>
-  );
-}
-export default loading;
-```
-
-jobs/loading.tsx
-
-```tsx
-import { Skeleton } from '@/components/ui/skeleton';
-
-function loading() {
-  return (
-    <div className='p-8 grid sm:grid-cols-2 md:grid-cols-3  gap-4 rounded-lg border'>
-      <Skeleton className='h-10' />
-      <Skeleton className='h-10 ' />
-      <Skeleton className='h-10 ' />
-    </div>
-  );
-}
-export default loading;
 ```
 
 ## Explore Re-charts Library
@@ -3255,5 +3217,3 @@ function ButtonContainer({ currentPage, totalPages }: ButtonContainerProps) {
 }
 export default ButtonContainer;
 ```
-
-## THE END

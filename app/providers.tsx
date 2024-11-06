@@ -29,7 +29,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         <Toaster />
         <QueryClientProvider client={queryClient}>
           {children}
-          <ReactQueryDevtools />
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ThemeProvider>
     </>

@@ -18,7 +18,7 @@ import { JobMode, JobStatus } from "@/utils/types";
 
 type CustomFormInputFieldProps = {
   name: string;
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   control: Control<any>;
 };
 
@@ -45,6 +45,7 @@ export function CustomFormInputField({
 
 type CustomFormSelectFieldProps = {
   name: string;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   control: Control<any>;
   items: string[];
   labelText?: string;

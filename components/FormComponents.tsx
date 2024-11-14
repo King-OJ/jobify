@@ -18,16 +18,8 @@ import { JobMode, JobStatus } from "@/utils/types";
 
 type CustomFormInputFieldProps = {
   name: string;
-  control: Control<
-    any,
-    {
-      mode: JobMode;
-      position: string;
-      company: string;
-      location: string;
-      status: JobStatus;
-    }
-  >;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  control: Control<any>;
 };
 
 export function CustomFormInputField({

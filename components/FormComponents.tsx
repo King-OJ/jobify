@@ -14,10 +14,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "./ui/input";
+import { JobMode, JobStatus } from "@/utils/types";
 
 type CustomFormInputFieldProps = {
   name: string;
-  control: Control<any>;
+  control: Control<
+    any,
+    {
+      mode: JobMode;
+      position: string;
+      company: string;
+      location: string;
+      status: JobStatus;
+    }
+  >;
 };
 
 export function CustomFormInputField({

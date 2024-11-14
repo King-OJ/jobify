@@ -18,7 +18,7 @@ import { JobMode, JobStatus } from "@/utils/types";
 
 type CustomFormInputFieldProps = {
   name: string;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   control: Control<any>;
 };
 
